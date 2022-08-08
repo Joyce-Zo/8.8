@@ -1,0 +1,155 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+
+//int main()
+//{
+//// 类型-数组名[个数-必须常量]={元素}；
+//	int arr10[10] = { 1,2,3 };
+//	// 不完全初始化，创建3个空间123，后面空间默认初始化为0
+//	访问数组：下标引用操作符 []
+//	//char arr2[5] = { 'a','b','c' };
+//	char arr20[5] = { 'a',98,'c' }; // 与上方相同，98解析为b (98ASCII码值为b)
+//
+//	//   效果相同，仍旧创建3个abc，后默认初始化为0
+//	char arr3[5] = "abc";
+//	//  效果相同，创建三个abc，后面带上"\0"，最后一个元素默认初始化为0(与前面\0)不同
+//
+//	char arr4[] = "abcdef";
+//	//    未指定元素个数，执行后根据后面字符数量(6+1(\0))确定元素个数
+//	sizeof(arr4);
+//	// sizeof - 计算arr4所占空间的大小 - 7个元素 char*7 = 1 *7=7
+//	strlen(arr4);
+	//              [a b c d e f \0]
+	// strlen - 求字符串长度，-'\0'之前字符的个数，遇到\0则停止不计数
+
+	//strlen - 只能求 字符串 长度 ，是库函数，需要引头文件strling.h
+	//sizeof - 计算变量、数组、类型 的大小，单位是字节 ，是操作符
+
+	// 8bit(位/比特-信息的最小单位) = 1byte(字节-数据存储的基础单位) -> kb(千字节) -> mb(兆字节)
+	//   1kb = 1024bytes      1byte = 8 bits
+
+	//char arr1[] = "abc";
+	//char arr2[] = { 'a','b','c' };
+	//printf("%d\n", sizeof(arr1)); //4
+	//printf("%d\n", sizeof(arr2)); //3
+	//printf("%d\n", strlen(arr1));//3
+	//printf("%d\n", strlen(arr2));//3
+	//printf("%s\n", arr2);
+
+	//int main()
+	//{
+	//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };  //  数组在内存中连续存放/存储
+	//	int sz = sizeof(arr) / sizeof(arr[0]);
+	//	int i = 0;
+	//	for (i = 0; i < sz; i++)
+	//	{
+	//		printf("&arr[%d]=%p\n", i, &arr[i]);
+	//	}
+	//	return 0;
+	//}
+
+//      二维数组
+//   二维数组的访问 依然是通过 下标[] 来访问	
+//int main()
+//{
+//	//int arr1[3][4] = { 1,2,3,4,5 };
+//	//int arr2[3][4] = { { 1,2,3 }, { 4, 5 } };
+//	//int arr3[3][4] = { { 1,2,3 }, 4, 5 };
+////printf("%p", arr1);
+//	//int arr4[][4] = { { 1,2,3 }, { 4, 5 } };
+//	int arr5[3][5] = { { 1,2,3 }, { 4, 5 } };
+//	//  二维数组的 列 不能省略
+//	int i, j;   //   二维数组在内存中也是		连续存放/存储
+//	for (i = 0; i < 3; i++)
+//	{
+//		for (j = 0; j < 4; j++)
+//		{
+//			printf("arr[%d][%d]=%p\n", i, j, &arr5[i][j]);
+//			Sleep(200);
+//		}
+//		printf("\n");
+//	}
+//	
+//
+//	return 0;
+//}
+
+//void bubble_sort(int arr[],int sz)
+//{
+//	int i = 0; //  确定冒泡排序的趟数
+//	//int sz = sizeof(arr) / sizeof(arr[0]);  // 10个元素
+//	for (i = 0; i < sz - 1; i++)//  9对
+//	{
+//		int flag = 1; //  假定数组无序
+//		//  每一趟冒泡排序开始
+//		int j = 0;
+//		for (j = 0; j < sz - 1 - i; j++)  //  随着对数下降，交换次数也下降
+//		{
+//			if (arr[j] > arr[j + 1])
+//			{
+//				int tmp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = tmp;
+//				flag = 0;  // 尚为无序，可继续进行冒泡排序
+//			}
+//		}
+//		if (flag == 1)
+//		{     //  此时已经有序，不再进入冒泡排序，减少循环次数，增大效率
+//			break;
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int arr[] = { 11,10,9,18,7,6,5,4,3,2,1 };
+//	int i = 0;
+//	int sz = sizeof(arr) / sizeof(arr[0]);
+//	// 对arr数组进行排序，升序
+//	bubble_sort(arr,sz);  //  冒泡序列函数
+//	// 对arr数组进行传参，传递过去的实际上是数组arr首元素的地址 &arr[0].
+//	for (i = 0; i < sz; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
+
+//  数组名
+int main()
+{
+	int arr[10] = { 12,3,4,5,6 };
+	printf("%p ", arr);
+	printf("%p ", &arr[0]);  //  三者等价	
+	printf("%d", *arr);
+	// 除以下两种情况外，其他数组名都表示数组首元素的地址
+	
+   // 1.sizeof(数组名),计算整个数组的大小，单位是字节，sizeof内部单独放一个数组名，数组名表示整个数组
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	//2. &数组名，取出的是数组的地址，数组名表示整个数组
+	printf("%p ", &arr);
+	//  打印出的显示第一个元素的地址，实际是整个元素的地址
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
